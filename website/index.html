@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Weather Journal</title>
+</head>
+<body>
+    <div id="header">
+        <h1>My Weather Journal</h1>
+    </div>
+    <div id="inputElements">
+        <div id="unitSelectorFrame">
+            <label for="unitSelector">Select your Unitstyle</label>
+            <select id="unitSelector">
+                <option value="imperial">Imperial</option>
+                <option value="metric">Metric</option>
+                <option value="standard">Kelvin</option>
+            </select>
+        </div>
+        <div id="countrySelectorFrame">
+            <label for="countrySelector">Choose your country</label>
+            <select id="countrySelector">
+                <option value="us">USA</option>
+                <option value="gb">Great Britain</option>
+                <option value="de">Germany</option>
+            </select>
+        </div>
+        <div id="zipCodeFrame">
+            <label for="zipCode">Enter your ZIP-Code</label>
+            <input type="text" id="zipCode" placeholder="10015">
+        </div>
+        <div id="feelingsFrame">
+            <label for="feelings">How are you feeling at the moment?</label>
+            <textarea id="feelings" placeholder="I have never felt any better :)" rows="10" cols="60" class="shadow"></textarea>
+        </div>
+        <button id="submitMood" class="shadow">Submit Mood</button>
+    </div>
+    <div id="entryHolder" class="shadow">
+        <div id="holderTitle">Latest entry to journal</div>
+        <div id="date"></div>
+        <div id="place"></div>
+        <div id="weather"></div>
+        <div id="temp"></div>
+        <div id="content">No entry so far</div>
+    </div>
+    <script src="./app.js"></script>
+</body>
+</html>
