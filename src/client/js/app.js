@@ -95,6 +95,4 @@ function getTemperatureUnit(typeString =""){
     document.getElementById("temp").innerHTML = document.getElementById("temp").innerHTML+unit;
 }
 
-document.getElementById("submitMood").addEventListener("click",getWeather);
-document.getElementById("unitSelector").addEventListener("change",adaptMetric);
-document.getElementById("countrySelector").addEventListener("change",adaptCountry);
+export {postData, getData, getWeather, adaptMetric, adaptCountry, getTemperatureUnit};
