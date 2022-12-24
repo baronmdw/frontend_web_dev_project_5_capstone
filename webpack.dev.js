@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const fileLoader = require('file-loader')
 
 module.exports = {
     entry: './src/client/index.js',
@@ -11,7 +11,6 @@ module.exports = {
         libraryTarget: 'var',
         library: 'Client',
         filename: 'main.js',
-        path: path.resolve(__dirname,'public/')
     },
     mode: 'development',
     devtool: 'source-map',
@@ -29,10 +28,15 @@ module.exports = {
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             },
             {
-                test: /\.(png|svg|jpg|jpeg|webp)$/,
-                type: 'asset/resource',
-                loader: "file-loader"
-            }
+                test: /\.(png|svg|jpe?g|webp)$/i,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'images/',
+                    }
+                }]
+            },
         ],
     },
     plugins: [

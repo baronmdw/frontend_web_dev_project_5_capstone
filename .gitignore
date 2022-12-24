@@ -102,4 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Media files
 src/client/media/Paris_night.webp
