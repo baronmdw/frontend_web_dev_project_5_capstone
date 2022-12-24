@@ -27,6 +27,11 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|webp)$/,
+                type: 'asset/resource',
+                loader: "file-loader"
             }
         ],
     },
