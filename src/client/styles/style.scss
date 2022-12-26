@@ -80,12 +80,13 @@ body {
         justify-content: start;
         label {
             font-size: 13pt;
+            padding: 2px 0 0 2px;
         }
         input {
             font-size: 13pt;
             border: none;
             border-radius: 4px;
-            padding: 2px;
+            padding: 2px 0 0 2px;
         }
     }
 }
@@ -96,7 +97,7 @@ button {
     border-radius: 4px;
     background-color: blue;
     color: white;
-    padding: 5px;
+    padding: 7px 5px 5px 5px;
 }
 
 .bodyContent {
