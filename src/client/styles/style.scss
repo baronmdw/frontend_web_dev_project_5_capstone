@@ -54,8 +54,14 @@ body {
     border-radius: 5px;
 }
 
+.informationContent {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
 .card-shadow {
-    box-shadow: 3px 5px 3px #c0c0c080;
+    box-shadow: 2px 4px 3px #00000070;
 }
 
 @media (min-width:1000px) {
