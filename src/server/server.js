@@ -1,6 +1,8 @@
 // global variables
 const appData = [];
 const projectData = {};
+const postalCodeApiKey = process.env.POSTAL_CODE_API_KEY;
+
 
 // setup express environment
 const express = require("express");

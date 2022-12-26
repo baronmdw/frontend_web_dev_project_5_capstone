@@ -1,8 +1,8 @@
 const baseURL = "http://localhost:8080/"
 const weatherURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
+const postalCodeURL = "http://api.geonames.org/postalCodeSearchJSON?"
 let unitStyle = "imperial";
-let country = "us";
-let zipCode = "10015";
+const postalCodeApiKey = "";
 
 const postData = async (url="", data={}) => {
     // This Function sends a post request to the URL that was handed over including the data in the caller as JSON object
@@ -33,39 +33,30 @@ const getData = async (url="") => {
     };
 };
 
-function getWeather() {
+function getPostalCode() {
     // This function reads out the inputs on the page and retrieves the weather data from the openweathermap API
     // Get Zip Code and fill in with placeholder for Manhattan if no user entry was given
-    let zipCode = document.getElementById("zipCode").value;
-    if (!zipCode) {
-      zipCode = document.getElementById("zipCode").placeholder;
+    let destinationName = document.getElementById("destination").value;
+    if (!destinationName) {
+
+    // TODO: Change functionalitiy if empty
+
+      destinationName = document.getElementById("destination").placeholder;
     }
-    // Get Mood and fill in with placeholder for awesome mood if no user entry was given
-    let currentMood = document.getElementById("feelings").value;
-    if (!currentMood) {
-        currentMood = document.getElementById("feelings").placeholder;   
-    }
-    // Create Date variable in European Template
-    let d = new Date();
-    let newDate = d.getDate()+'.'+ (d.getMonth()+1) +'.'+ d.getFullYear();
+
+    // Read Start and End Date of trip
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate");
+
     // Contact Weathermap API and retrieve Data
-    const weatherData = getData(weatherURL+zipCode+","+country+apiKey+"&units="+unitStyle)
-    .then(function(weatherData){
+    const geoData = getData(postalCodeURL+"placename="+destinationName+"&username="+postalCodeApiKey)
+    .then(function(geoData){
         // If weather was fetched successfully: Post to Database
-        postData(baseURL+"addDay",{date:newDate,weather:weatherData,mood:currentMood,unit:unitStyle})
+        console.log(geoData)
     })
-    .then(()=>{
-        // Update UI Elements with the received data
-        const allData = getData(baseURL+"getData")
-        .then(function(allData){
-            document.getElementById("date").innerHTML = "Date of Entry:  "+allData.date;
-            document.getElementById("place").innerHTML = "The Place to be:  "+allData.place.replaceAll("\x22","");
-            document.getElementById("weather").innerHTML = "Weather present:  "+allData.weather;
-            document.getElementById("temp").innerHTML = "Temperature during Entry:  "+Math.round(allData.temperature);
-            document.getElementById("content").innerHTML = "Mood of User:  "+allData.mood;
-            getTemperatureUnit(allData.unitStyle);
-    })
-})
+//     .then(()=>{
+//         // Update UI Elements with the received data
+// })
 }
 
 function getTemperatureUnit(typeString =""){
@@ -86,8 +77,8 @@ function getTemperatureUnit(typeString =""){
 
 function sayHello(){
     const destination = document.getElementById("destination").value;
-    console.log(destination);
-    alert("Hello to "+ destination);
+    alert(postalCodeURL+"placename="+destination+"&username="+postalCodeApiKey);
+    getPostalCode();
 }
 
-export {postData, getData, getWeather, getTemperatureUnit, sayHello};
+export {postData, getData, getPostalCode, getTemperatureUnit, sayHello};
