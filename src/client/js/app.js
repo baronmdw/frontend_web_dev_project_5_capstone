@@ -1,5 +1,4 @@
 const baseURL = "http://localhost:8080/"
-const apiKey = "&appid=ea53dd34102b8c99830e720e490422ba"
 const weatherURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 let unitStyle = "imperial";
 let country = "us";
@@ -69,16 +68,6 @@ function getWeather() {
 })
 }
 
-function adaptMetric() {
-    // Adapt the Metric that will be called to the openweathermap API to what was selected by user
-    unitStyle = document.getElementById("unitSelector").value;
-}
-
-function adaptCountry() {
-    // Adapt the Country that is of interest which will be called to the openweathermap API
-    country = document.getElementById("countrySelector").value;
-}
-
 function getTemperatureUnit(typeString =""){
     // This Function sets the unit in the temperature based on the unitType that was used (°C, °F or K)
     switch(typeString) {
@@ -95,4 +84,10 @@ function getTemperatureUnit(typeString =""){
     document.getElementById("temp").innerHTML = document.getElementById("temp").innerHTML+unit;
 }
 
-export {postData, getData, getWeather, adaptMetric, adaptCountry, getTemperatureUnit};
+function sayHello(){
+    const destination = document.getElementById("destination").value;
+    console.log(destination);
+    alert("Hello to "+ destination);
+}
+
+export {postData, getData, getWeather, getTemperatureUnit, sayHello};
