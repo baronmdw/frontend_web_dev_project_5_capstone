@@ -81,7 +81,6 @@ function getTemperatureUnit(typeString =""){
 }
 
 function updateDOM(inputData) {
-    console.log(inputData)
     const headingElement = document.querySelector("h2");
 
     // TODO: add flag of country
