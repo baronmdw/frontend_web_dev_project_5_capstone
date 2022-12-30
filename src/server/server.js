@@ -22,8 +22,8 @@ dotenv.config();
 app.use(express.static('./dist'));
 
 // global variables
-const appData = [];
-const projectData = {};
+let appData = [];
+let tripData = {};
 const postalCodeApiKey = process.env.POSTAL_CODE_API_KEY;
 const postalCodeURL = "http://api.geonames.org/postalCodeSearchJSON?";
 const port = 8080;
@@ -36,27 +36,20 @@ function listening(){
     console.log("Server started\n Active Port: ",port);
 }
 
-app.get("/salve",(req,res)=>{res.send("Hello World-again")});
-
-// POST handler to add data to app
-app.post("/addDay",addDay);
-function addDay (req,res) {
-    projectData["date"]= req.body.date;
-    projectData["weather"]= req.body.weather.weather[0].main;
-    projectData["temperature"]= req.body.weather.main.temp;
-    projectData["unitStyle"]= req.body.unit;
-    projectData["place"]= req.body.weather.name;
-    projectData["mood"]= req.body.mood;
-    
-    appData.push(projectData);
-    console.log("Data pushed: ",projectData);
-    res.send(projectData);
-}
-
-app.post("/getPlace", async (req,res) => {
-    console.log(req.body.start, req.body.end);
+// POST handler to add trip-data to app
+app.post("/addTrip", async (req,res) => {
+    tripData = {};
+    tripData['destination'] = req.body.destination;
+    tripData['start'] = req.body.start;
+    tripData['end'] = req.body.end;
+    console.log(tripData);
     axios.get(postalCodeURL+"placename="+req.body.destination+"&username="+postalCodeApiKey)
         .then(function(response) {
+            tripData['lat'] = response['data']['postalCodes'][0]['lat'];
+            tripData['lng'] = response['data']['postalCodes'][0]['lng'];
+            tripData['country'] = response['data']['postalCodes'][0]['countryCode'];
+            console.log(tripData);
+            appData.push(tripData);
             res.send(response['data']['postalCodes'][0]);
         })
         .catch(function(error) {

@@ -48,10 +48,15 @@ function getPostalCode() {
     // Read Start and End Date of trip
     let startDate = document.getElementById("startDate").value;
     let endDate = document.getElementById("endDate").value;
+
+    // TODO: Error handling
+
+
+
     const sendData = {destination: destinationName, start:startDate, end:endDate};
 
     // Contact Weathermap API and retrieve Data
-    const geoData = postData(baseURL+"getPlace/",sendData)
+    const geoData = postData(baseURL+"addTrip/",sendData)
     .then(function(geoData){
         // If weather was fetched successfully: Post to Database
         console.log(geoData)
