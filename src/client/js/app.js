@@ -7,9 +7,9 @@ const postalCodeApiKey = "";
 const postData = async (url="", data={}) => {
     // This Function sends a post request to the URL that was handed over including the data in the caller as JSON object
     const response = await fetch(url, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {'Content-Type': 'application/json'},
+        method: "POST",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data),
     });
     
@@ -64,44 +64,28 @@ function getPostalCode() {
     })
 }
 
-function getTemperatureUnit(typeString =""){
-    // This Function sets the unit in the temperature based on the unitType that was used (°C, °F or K)
-    switch(typeString) {
-        case 'imperial':
-            unit=" °F";
-            break;
-        case 'metric':
-            unit=" °C";
-            break;
-        case 'standard':
-            unit=" K";
-            break;
-    }
-    document.getElementById("temp").innerHTML = document.getElementById("temp").innerHTML+unit;
-}
-
 function updateDOM(inputData) {
     const headingElement = document.querySelector("h2");
 
     // TODO: add flag of country
 
-    headingElement.textContent = `Trip to ${inputData['destination']}, ${inputData['country']}`;
+    headingElement.textContent = `Trip to ${inputData["destination"]}, ${inputData["country"]}`;
     const dateElement = document.querySelector(".time > p");
     // set comparisondate (now) by setting Date Object which will by default take todays value
     const compareDate= new Date();
-    const startDate = new Date(inputData['start']);
-    const endDate = new Date(inputData['end']);
+    const startDate = new Date(inputData["start"]);
+    const endDate = new Date(inputData["end"]);
     // calculate difference of days between startdate and todays date by deviding difference [ms] by amount of ms per day
     const daysDiff = Math.ceil((startDate-compareDate)/(1000*60*60*24));
     const tripDiff = Math.ceil((endDate-startDate)/(1000*60*60*24)+1);
-    dateElement.innerHTML = `${inputData['start']} til ${inputData['end']}.<br>Your trip will start in <b>${daysDiff} Days</b>!<br>You will be travelling for <b>${tripDiff} Days</b>!`;
+    dateElement.innerHTML = `${inputData["start"]} til ${inputData["end"]}.<br>Your trip will start in <b>${daysDiff} Days</b>!<br>You will be travelling for <b>${tripDiff} Days</b>!`;
     // update weather forecast element
     const weatherElement = document.querySelector(".weatherForecast > p");
-    weatherElement.innerHTML = `<b>Weather</b>: ${inputData['forecast']}<br><b>Min. Temparature</b>: ${inputData['temperature']} °C<br><b>Min/Max</b>: ${inputData['tempMin']}/${inputData['tempMax']} °C`;
+    weatherElement.innerHTML = `<b>Weather</b>: ${inputData["forecast"]}<br><b>Min. Temparature</b>: ${inputData["temperature"]} °C<br><b>Min/Max</b>: ${inputData["tempMin"]}/${inputData["tempMax"]} °C`;
     // update image
     const imageElement = document.querySelector(".contentCard > img");
     imageElement.src = inputData["imgURL"];
 }
 
 
-export {postData, getData, getPostalCode, getTemperatureUnit };
+export {postData, getData, getPostalCode };
