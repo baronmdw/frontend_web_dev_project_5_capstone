@@ -26,8 +26,9 @@ let appData = [];
 let tripData = {};
 const postalCodeApiKey = process.env.POSTAL_CODE_API_KEY;
 const postalCodeURL = "http://api.geonames.org/postalCodeSearchJSON?";
+const weatherbitApiKey = process.env.WEATHERBIT_API_KEY;
+const weatherbitURL = "https://api.weatherbit.io/v2.0/forecast/daily?";
 const port = 8080;
-console.log(postalCodeApiKey);
 
 // start server
 const server = app.listen(port,listening);
@@ -48,11 +49,34 @@ app.post("/addTrip", async (req,res) => {
             tripData['lat'] = response['data']['postalCodes'][0]['lat'];
             tripData['lng'] = response['data']['postalCodes'][0]['lng'];
             tripData['country'] = response['data']['postalCodes'][0]['countryCode'];
-            console.log(tripData);
-            appData.push(tripData);
-            res.send(tripData);
+            console.log(weatherbitURL+"lat="+tripData['lat']+"&lon="+tripData['lng']+"&key="+weatherbitApiKey)
+            axios.get(weatherbitURL+"lat="+tripData['lat']+"&lon="+tripData['lng']+"&key="+weatherbitApiKey)
+                .then(function(respo){
+                    let forecast = "not available";
+                    let temperature = "";
+                    let tempMax = "";
+                    let tempMin ="";
+                    for (let dateArtefact of respo["data"]["data"]){
+                        if (dateArtefact["valid_date"] === tripData["start"]){
+                            forecast = dateArtefact["weather"]["description"];
+                            temperature = dateArtefact["temp"];
+                            tempMax = dateArtefact["max_temp"];
+                            tempMin = dateArtefact["min_temp"];
+                        }
+                    }
+                    tripData["forecast"] = forecast;
+                    tripData["temperature"] = temperature;
+                    tripData["tempMax"] = tempMax;
+                    tripData["tempMin"] = tempMin;
+                    console.log(tripData);
+                    appData.push(tripData);
+                    res.send(tripData);
+                })
         })
         .catch(function(error) {
             console.log("Error: ",error);
+        })
+        .then(function(){
+            
         })
 });
