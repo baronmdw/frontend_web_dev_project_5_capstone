@@ -8,18 +8,18 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // cross origin
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors());
 
 // axios for http requests
-const axios = require('axios');
+const axios = require("axios");
 
 // dotenv for accessing environment variables
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 // initialize main project folder
-app.use(express.static('./dist'));
+app.use(express.static("./dist"));
 
 // global variables
 let appData = [];
@@ -42,17 +42,17 @@ function listening(){
 // POST handler to add trip-data to app
 app.post("/addTrip", async (req,res) => {
     tripData = {};
-    tripData['destination'] = req.body.destination;
-    tripData['start'] = req.body.start;
-    tripData['end'] = req.body.end;
+    tripData["destination"] = req.body.destination;
+    tripData["start"] = req.body.start;
+    tripData["end"] = req.body.end;
     console.log(tripData);
     axios.get(postalCodeURL+"placename="+req.body.destination+"&username="+postalCodeApiKey)
         .then(function(response) {
-            tripData['lat'] = response['data']['postalCodes'][0]['lat'];
-            tripData['lng'] = response['data']['postalCodes'][0]['lng'];
-            tripData['country'] = response['data']['postalCodes'][0]['countryCode'];
-            console.log(weatherbitURL+"lat="+tripData['lat']+"&lon="+tripData['lng']+"&key="+weatherbitApiKey)
-            axios.get(weatherbitURL+"lat="+tripData['lat']+"&lon="+tripData['lng']+"&key="+weatherbitApiKey)
+            tripData["lat"] = response["data"]["postalCodes"][0]["lat"];
+            tripData["lng"] = response["data"]["postalCodes"][0]["lng"];
+            tripData["country"] = response["data"]["postalCodes"][0]["countryCode"];
+            console.log(weatherbitURL+"lat="+tripData["lat"]+"&lon="+tripData["lng"]+"&key="+weatherbitApiKey)
+            axios.get(weatherbitURL+"lat="+tripData["lat"]+"&lon="+tripData["lng"]+"&key="+weatherbitApiKey)
                 .then(function(respo){
                     let forecast = "not available";
                     let temperature = "";
@@ -70,8 +70,8 @@ app.post("/addTrip", async (req,res) => {
                     tripData["temperature"] = temperature;
                     tripData["tempMax"] = tempMax;
                     tripData["tempMin"] = tempMin;
-                    console.log(pixabayURL+"key="+pixabayApiKey+"&q="+tripData['destination'])
-                    axios.get(pixabayURL+"key="+pixabayApiKey+"&q="+tripData['destination'])
+                    console.log(pixabayURL+"key="+pixabayApiKey+"&q="+tripData["destination"])
+                    axios.get(pixabayURL+"key="+pixabayApiKey+"&q="+tripData["destination"])
                         .then(function(resp){
                             if (resp["data"]["total"]>0){
                             const imgURL = resp["data"]["hits"][0]["webformatURL"];
@@ -79,7 +79,7 @@ app.post("/addTrip", async (req,res) => {
                             }
 
                             // TODO: request country
-                            
+
                             console.log(tripData);
                             appData.push(tripData);
                             res.send(tripData);
