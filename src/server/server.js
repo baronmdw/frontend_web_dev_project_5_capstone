@@ -28,6 +28,8 @@ const postalCodeApiKey = process.env.POSTAL_CODE_API_KEY;
 const postalCodeURL = "http://api.geonames.org/postalCodeSearchJSON?";
 const weatherbitApiKey = process.env.WEATHERBIT_API_KEY;
 const weatherbitURL = "https://api.weatherbit.io/v2.0/forecast/daily?";
+const pixabayApiKey = process.env.PIXABAY_API_KEY;
+const pixabayURL = "https://pixabay.com/api/?"
 const port = 8080;
 
 // start server
@@ -68,9 +70,17 @@ app.post("/addTrip", async (req,res) => {
                     tripData["temperature"] = temperature;
                     tripData["tempMax"] = tempMax;
                     tripData["tempMin"] = tempMin;
-                    console.log(tripData);
-                    appData.push(tripData);
-                    res.send(tripData);
+                    console.log(pixabayURL+"key="+pixabayApiKey+"&q="+tripData['destination'])
+                    axios.get(pixabayURL+"key="+pixabayApiKey+"&q="+tripData['destination'])
+                        .then(function(resp){
+                            if (resp["data"]["total"]>0){
+                            const imgURL = resp["data"]["hits"][0]["webformatURL"];
+                            tripData["imgURL"] = imgURL;
+                            }
+                            console.log(tripData);
+                            appData.push(tripData);
+                            res.send(tripData);
+                        })
                 })
         })
         .catch(function(error) {
