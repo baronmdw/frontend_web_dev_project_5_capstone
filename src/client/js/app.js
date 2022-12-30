@@ -55,11 +55,12 @@ function getPostalCode() {
 
     const sendData = {destination: destinationName, start:startDate, end:endDate};
 
-    // Contact Weathermap API and retrieve Data
-    const geoData = postData(baseURL+"addTrip/",sendData)
-    .then(function(geoData){
-        // If weather was fetched successfully: Post to Database
-        console.log(geoData)
+    // Contact Backend API and retrieve Data from it
+    const tripData = postData(baseURL+"addTrip/",sendData)
+    .then(function(tripData){
+        updateDOM(tripData);
+        const formElement = document.getElementById("newTrip");
+        formElement.reset()
     })
 //     .then(()=>{
 //         // Update UI Elements with the received data
@@ -80,6 +81,14 @@ function getTemperatureUnit(typeString =""){
             break;
     }
     document.getElementById("temp").innerHTML = document.getElementById("temp").innerHTML+unit;
+}
+
+function updateDOM(inputData) {
+    console.log(inputData)
+    const headingElement = document.querySelector("h2");
+    headingElement.textContent = `Trip to ${inputData['destination']}, ${inputData['country']}`;
+    const dateElement = document.querySelector(".time > p");
+    dateElement.textContent = `From ${inputData['start']} til ${inputData['end']}`;
 }
 
 

@@ -50,7 +50,7 @@ app.post("/addTrip", async (req,res) => {
             tripData['country'] = response['data']['postalCodes'][0]['countryCode'];
             console.log(tripData);
             appData.push(tripData);
-            res.send(response['data']['postalCodes'][0]);
+            res.send(tripData);
         })
         .catch(function(error) {
             console.log("Error: ",error);
