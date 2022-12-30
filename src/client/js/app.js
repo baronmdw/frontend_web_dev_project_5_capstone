@@ -24,7 +24,6 @@ const postData = async (url="", data={}) => {
 const getData = async (url="") => {
     // This Function sends a get request to the URL that was handed over and returns the response
     const response = await fetch(url);
-
     try {
         const retreivedData = await response.json();
         return retreivedData;
@@ -49,7 +48,7 @@ function getPostalCode() {
     let endDate = document.getElementById("endDate");
 
     // Contact Weathermap API and retrieve Data
-    const geoData = getData(postalCodeURL+"placename="+destinationName+"&username="+postalCodeApiKey)
+    const geoData = getData(baseURL+"getPlace/"+destinationName)
     .then(function(geoData){
         // If weather was fetched successfully: Post to Database
         console.log(geoData)
@@ -77,7 +76,6 @@ function getTemperatureUnit(typeString =""){
 
 function sayHello(){
     const destination = document.getElementById("destination").value;
-    alert(postalCodeURL+"placename="+destination+"&username="+postalCodeApiKey);
     getPostalCode();
 }
 

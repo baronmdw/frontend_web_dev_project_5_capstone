@@ -1,9 +1,3 @@
-// global variables
-const appData = [];
-const projectData = {};
-const postalCodeApiKey = process.env.POSTAL_CODE_API_KEY;
-
-
 // setup express environment
 const express = require("express");
 const app = express();
@@ -17,10 +11,23 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+// axios for http requests
+const axios = require('axios');
+
+// dotenv for accessing environment variables
+const dotenv = require('dotenv');
+dotenv.config();
+
 // initialize main project folder
 app.use(express.static('./dist'));
 
+// global variables
+const appData = [];
+const projectData = {};
+const postalCodeApiKey = process.env.POSTAL_CODE_API_KEY;
+const postalCodeURL = "http://api.geonames.org/postalCodeSearchJSON?";
 const port = 8080;
+console.log(postalCodeApiKey);
 
 // start server
 const server = app.listen(port,listening);
@@ -46,7 +53,12 @@ function addDay (req,res) {
     res.send(projectData);
 }
 
-app.get("/getData",getData);
-function getData (req,res) {
-    res.send(projectData);
-}
+app.get("/getPlace/:destinationName", async (req,res) => {
+    axios.get(postalCodeURL+"placename="+req.params.destinationName+"&username="+postalCodeApiKey)
+        .then(function(response) {
+            res.send(response['data']['postalCodes'][0]);
+        })
+        .catch(function(error) {
+            console.log("Error: ",error);
+        })
+});
