@@ -33,7 +33,9 @@ const getData = async (url="") => {
 };
 
 function getPostalCode() {
-    // This function reads out the inputs on the page and retrieves the weather data from the openweathermap API
+    // This function reads out the inputs on the page and sends a post request to the backend
+    // with the received response the DOM will be updated
+
     // Get Zip Code and fill in with placeholder for Manhattan if no user entry was given
     let destinationName = document.getElementById("destination").value;
     if (!destinationName) {
@@ -45,10 +47,11 @@ function getPostalCode() {
 
     // Read Start and End Date of trip
     let startDate = document.getElementById("startDate").value;
-    let endDate = document.getElementById("endDate");
+    let endDate = document.getElementById("endDate").value;
+    const sendData = {destination: destinationName, start:startDate, end:endDate};
 
     // Contact Weathermap API and retrieve Data
-    const geoData = getData(baseURL+"getPlace/"+destinationName)
+    const geoData = postData(baseURL+"getPlace/",sendData)
     .then(function(geoData){
         // If weather was fetched successfully: Post to Database
         console.log(geoData)
@@ -74,9 +77,5 @@ function getTemperatureUnit(typeString =""){
     document.getElementById("temp").innerHTML = document.getElementById("temp").innerHTML+unit;
 }
 
-function sayHello(){
-    const destination = document.getElementById("destination").value;
-    getPostalCode();
-}
 
-export {postData, getData, getPostalCode, getTemperatureUnit, sayHello};
+export {postData, getData, getPostalCode, getTemperatureUnit };

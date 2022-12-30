@@ -53,8 +53,9 @@ function addDay (req,res) {
     res.send(projectData);
 }
 
-app.get("/getPlace/:destinationName", async (req,res) => {
-    axios.get(postalCodeURL+"placename="+req.params.destinationName+"&username="+postalCodeApiKey)
+app.post("/getPlace", async (req,res) => {
+    console.log(req.body.start, req.body.end);
+    axios.get(postalCodeURL+"placename="+req.body.destination+"&username="+postalCodeApiKey)
         .then(function(response) {
             res.send(response['data']['postalCodes'][0]);
         })
