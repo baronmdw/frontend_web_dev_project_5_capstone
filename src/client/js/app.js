@@ -93,7 +93,8 @@ function updateDOM(inputData) {
     const endDate = new Date(inputData['end']);
     // calculate difference of days between startdate and todays date by deviding difference [ms] by amount of ms per day
     const daysDiff = Math.ceil((startDate-compareDate)/(1000*60*60*24));
-    dateElement.innerHTML = `${inputData['start']} til ${inputData['end']}.<br>Trip will start in <b>${daysDiff} Days</b>!`;
+    const tripDiff = Math.ceil((endDate-startDate)/(1000*60*60*24)+1);
+    dateElement.innerHTML = `${inputData['start']} til ${inputData['end']}.<br>Your trip will start in <b>${daysDiff} Days</b>!<br>You will be travelling for <b>${tripDiff} Days</b>!`;
     // update weather forecast element
     const weatherElement = document.querySelector(".weatherForecast > p");
     weatherElement.innerHTML = `<b>Weather</b>: ${inputData['forecast']}<br><b>Min. Temparature</b>: ${inputData['temperature']} °C<br><b>Min/Max</b>: ${inputData['tempMin']}/${inputData['tempMax']} °C`;
