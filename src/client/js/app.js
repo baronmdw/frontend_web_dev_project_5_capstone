@@ -62,9 +62,6 @@ function getPostalCode() {
         const formElement = document.getElementById("newTrip");
         formElement.reset()
     })
-//     .then(()=>{
-//         // Update UI Elements with the received data
-// })
 }
 
 function getTemperatureUnit(typeString =""){
@@ -86,9 +83,18 @@ function getTemperatureUnit(typeString =""){
 function updateDOM(inputData) {
     console.log(inputData)
     const headingElement = document.querySelector("h2");
+
+    // TODO: add flag of country
+
     headingElement.textContent = `Trip to ${inputData['destination']}, ${inputData['country']}`;
     const dateElement = document.querySelector(".time > p");
-    dateElement.textContent = `From ${inputData['start']} til ${inputData['end']}`;
+    // set comparisondate (now) by setting Date Object which will by default take todays value
+    const compareDate= new Date();
+    const startDate = new Date(inputData['start']);
+    const endDate = new Date(inputData['end']);
+    // calculate difference of days between startdate and todays date by deviding difference [ms] by amount of ms per day
+    const daysDiff = Math.ceil((startDate-compareDate)/(1000*60*60*24));
+    dateElement.innerHTML = `${inputData['start']} til ${inputData['end']}.<br>Trip will start in <b>${daysDiff} Days</b>!`;
 }
 
 
