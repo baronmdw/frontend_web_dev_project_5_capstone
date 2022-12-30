@@ -97,6 +97,9 @@ function updateDOM(inputData) {
     // update weather forecast element
     const weatherElement = document.querySelector(".weatherForecast > p");
     weatherElement.innerHTML = `<b>Weather</b>: ${inputData['forecast']}<br><b>Min. Temparature</b>: ${inputData['temperature']} °C<br><b>Min/Max</b>: ${inputData['tempMin']}/${inputData['tempMax']} °C`;
+    // update image
+    const imageElement = document.querySelector(".contentCard > img");
+    imageElement.src = inputData["imgURL"];
 }
 
 

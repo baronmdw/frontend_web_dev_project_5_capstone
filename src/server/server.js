@@ -77,6 +77,9 @@ app.post("/addTrip", async (req,res) => {
                             const imgURL = resp["data"]["hits"][0]["webformatURL"];
                             tripData["imgURL"] = imgURL;
                             }
+
+                            // TODO: request country
+                            
                             console.log(tripData);
                             appData.push(tripData);
                             res.send(tripData);
