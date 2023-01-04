@@ -49,9 +49,6 @@ function getPostalCode() {
     let startDate = document.getElementById("startDate").value;
     let endDate = document.getElementById("endDate").value;
 
-    // TODO: Error handling
-
-
 
     const sendData = {destination: destinationName, start:startDate, end:endDate};
 
@@ -65,12 +62,10 @@ function getPostalCode() {
 }
 
 function updateDOM(inputData) {
+    // update heading and flag
     const headingElement = document.querySelector(".tripHeader");
     const headingimg = headingElement.children[0];
     headingimg.src = inputData["flagURL"];
-
-    // TODO: add flag of country
-
     headingElement.children[1].textContent = `Trip to ${inputData["destination"]}`;
     const dateElement = document.querySelector(".time > p");
     // set comparisondate (now) by setting Date Object which will by default take todays value
