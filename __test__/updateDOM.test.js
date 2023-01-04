@@ -1,7 +1,7 @@
 import { updateDOM } from "../src/client/js/app"
 
-describe("Check if function works", () => {
-    test("Checkname", async ()=>{
+describe("Check if updating DOM in client works", () => {
+    test("updateDOM", async ()=>{
 
         document.body.innerHTML = `<div class="bodyContent">
         <div class="inputField card card-shadow">
