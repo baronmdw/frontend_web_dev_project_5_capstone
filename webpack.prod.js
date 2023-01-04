@@ -45,7 +45,7 @@ module.exports = {
             filename: './index.html',
         }),
         new MiniCssExtractPlugin({ filename: 'style.css' }),
-        // new WorkboxPlugin.GenerateSW()
+        new WorkboxPlugin.GenerateSW()
     ],
     devtool: 'source-map'
 }
