@@ -4,6 +4,6 @@ import puppeteer from "puppeteer";
 describe("Check if function works", () => {
     test("Checkname", ()=>{
         // TODO: define Testing
-        expect().toBeDefined();
+        expect("Hello").toBeDefined();
     })
 })

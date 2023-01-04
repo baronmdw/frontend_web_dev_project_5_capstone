@@ -90,4 +90,4 @@ function updateDOM(inputData) {
 }
 
 
-export {postData, getData, getPostalCode };
+export {postData, getData, getPostalCode, updateDOM };
