@@ -65,11 +65,13 @@ function getPostalCode() {
 }
 
 function updateDOM(inputData) {
-    const headingElement = document.querySelector("h2");
+    const headingElement = document.querySelector(".tripHeader");
+    const headingimg = headingElement.children[0];
+    headingimg.src = inputData["flagURL"];
 
     // TODO: add flag of country
 
-    headingElement.textContent = `Trip to ${inputData["destination"]}, ${inputData["country"]}`;
+    headingElement.children[1].textContent = `Trip to ${inputData["destination"]}`;
     const dateElement = document.querySelector(".time > p");
     // set comparisondate (now) by setting Date Object which will by default take todays value
     const compareDate= new Date();
