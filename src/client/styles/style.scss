@@ -105,9 +105,14 @@ button {
     background-color: darkgreen;
     color: white;
     padding: 7px 5px 5px 5px;
+    transition-property: font-size;
+    transition-duration: 1s;
+    transition-delay: 0s;
+    transition-timing-function: ease-out;   
     &:hover {
         background-color: green;
         color: white;
+        font-size: 20pt;
     }
 }
 
