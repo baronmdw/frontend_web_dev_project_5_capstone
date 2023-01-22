@@ -62,12 +62,53 @@ body {
 
 .card-shadow {
     box-shadow: 2px 4px 3px #00000070;
+    // animation-name: boxlifting;
+    // animation-duration: 2s;
+    // animation-iteration-count: infinite;
+
 }
 
 .contentCard {
     display: flex;
     flex-direction: column;
     padding: 15px;
+    overflow: hidden;
+    position: relative;
+    // animation-name: borderchanger;
+    // animation-duration: 2s;
+    // animation-iteration-count: infinite;
+    // animation-timing-function: linear;
+    &:after {
+        content: '';
+        background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+        width: 60%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform: skewX(-15deg);
+        position: absolute;
+        animation-duration: 2s;
+        animation-name: schimmer;
+        animation-iteration-count: infinite;
+        z-index: 5;
+    }
+}
+
+@keyframes schimmer {
+    from {left: -100%}
+    to {left: 100%}
+}
+
+@keyframes borderchanger {
+    0% {border: rgba(0,0,0,0) 2px solid}
+    50% {border: rgba(0,0,0,100) 2px solid}
+    100% {border: rgba(0,0,0,0) 2px solid}
+}
+
+@keyframes boxlifting {
+    0% {box-shadow: 2px 4px 3px #00000070;}
+    50% {box-shadow: 4px 8px 3px #00000070;}
+    100% {box-shadow: 2px 4px 3px #00000070;}
 }
 
 .inputField {
@@ -105,14 +146,31 @@ button {
     background-color: darkgreen;
     color: white;
     padding: 7px 5px 5px 5px;
-    transition-property: font-size;
-    transition-duration: 1s;
-    transition-delay: 0s;
-    transition-timing-function: ease-out;   
+    // transition-property: font-size;
+    // transition-duration: 1s;
+    // transition-delay: 0s;
+    // transition-timing-function: ease-out;
+    z-index: 2;
+    position: relative;   
+    overflow: hidden;
     &:hover {
         background-color: green;
         color: white;
-        font-size: 20pt;
+        // font-size: 20pt;
+    }
+    &:before {
+        content: '';
+        background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+        width: 70%;
+        height: 100%;
+        top: 0;
+        left: -100%;
+        transform: skewX(-30deg);
+        position: absolute;
+        transition: left 1s;
+    }
+    &:hover:before {
+        left: 100%;
     }
 }
 
